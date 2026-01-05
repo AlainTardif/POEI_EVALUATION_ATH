@@ -1,0 +1,13 @@
+TABLE: ZEKKO_ATH - Table entêtes commandes achat
+
+CHAMPS:
+| Champ  | Type      | Longueur | Description          |
+|--------|-----------|----------|----------------------|
+| MANDT  | MANDT     | 3        | Mandant              |
+| EBELN  | EBELN     | 10       | Numéro commande      |
+| BSTYP  | BSTYP     | 1        | Catégorie document   |
+| AEDAT  | AEDAT     | 8        | Date modification    |
+| ERNAM  | ERNAM     | 12       | Créé par             |
+| WAERS  | WAERS     | 5        | Devise               |
+
+CLE PRIMAIRE: MANDT, EBELN

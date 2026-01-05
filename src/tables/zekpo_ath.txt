@@ -1,0 +1,16 @@
+TABLE: ZEKPO_ATH - Table postes commandes achat
+
+CHAMPS:
+| Champ  | Type      | Longueur | Description          |
+|--------|-----------|----------|----------------------|
+| MANDT  | MANDT     | 3        | Mandant              |
+| EBELN  | EBELN     | 10       | Numéro commande      |
+| EBELP  | EBELP     | 5        | Numéro poste         |
+| MATNR  | MATNR     | 18       | Article              |
+| WERKS  | WERKS     | 4        | Division             |
+| MENGE  | MENGE     | 13,3     | Quantité             |
+| NETPR  | NETPR     | 11,2     | Prix net             |
+| NETWR  | NETWR     | 13,2     | Valeur nette         |
+| MEINS  | MEINS     | 3        | Unité                |
+
+CLE PRIMAIRE: MANDT, EBELN, EBELP
