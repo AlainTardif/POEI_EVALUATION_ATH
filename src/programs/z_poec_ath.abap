@@ -1,47 +1,34 @@
 REPORT z_poec_ath.
 
-TABLES: zekko_ath.
-
 DATA: go_poec TYPE REF TO zcl_poec_ath.
 
+DATA: gv_ebeln TYPE ebeln,
+      gv_matnr TYPE matnr.
+
 SELECTION-SCREEN BEGIN OF BLOCK b01 WITH FRAME TITLE TEXT-001.
-  SELECT-OPTIONS: s_ebeln FOR zekko_ath-ebeln NO INTERVALS.
-  PARAMETERS: p_matnr TYPE matnr.
+  SELECT-OPTIONS: s_ebeln FOR gv_ebeln NO-EXTENSION.
+  SELECT-OPTIONS: s_matnr FOR gv_matnr NO-EXTENSION.
 SELECTION-SCREEN END OF BLOCK b01.
 
-AT SELECTION-SCREEN ON VALUE-REQUEST FOR s_ebeln-low.
-  DATA: lt_ebeln TYPE TABLE OF zekko_ath,
-        lt_ret   TYPE TABLE OF ddshretval.
-
-  SELECT ebeln FROM zekko_ath INTO TABLE @lt_ebeln.
-
-  CALL FUNCTION 'F4IF_INT_TABLE_VALUE_REQUEST'
-    EXPORTING
-      retfield    = 'EBELN'
-      dynpprog    = sy-repid
-      dynpnr      = sy-dynnr
-      dynprofield = 'S_EBELN-LOW'
-      value_org   = 'S'
-    TABLES
-      value_tab   = lt_ebeln
-      return_tab  = lt_ret.
-
-AT SELECTION-SCREEN.
-  DATA: lv_ebeln TYPE ebeln.
+START-OF-SELECTION.
+  DATA: lv_ebeln TYPE ebeln,
+        lv_matnr TYPE matnr.
 
   READ TABLE s_ebeln INDEX 1 INTO DATA(ls_ebeln).
   IF sy-subrc = 0.
     lv_ebeln = ls_ebeln-low.
   ENDIF.
 
+  READ TABLE s_matnr INDEX 1 INTO DATA(ls_matnr).
+  IF sy-subrc = 0.
+    lv_matnr = ls_matnr-low.
+  ENDIF.
+
   CREATE OBJECT go_poec
     EXPORTING
       iv_ebeln = lv_ebeln
-      iv_matnr = p_matnr.
+      iv_matnr = lv_matnr.
 
-  go_poec->validate_selection( ).
-
-START-OF-SELECTION.
   go_poec->get_data( ).
   CALL SCREEN 100.
 
